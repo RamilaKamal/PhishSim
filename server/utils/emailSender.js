@@ -25,27 +25,51 @@ const TEMPLATE_CONFIG = {
   },
 };
 
-async function getTransporter() {
-  const db = await getDb();
+function isAuthFailure(err) {
+  return err?.code === 'EAUTH' || err?.responseCode === 535;
+}
 
-  if (!db.data.ethereal) {
-    const testAccount = await nodemailer.createTestAccount();
-    db.data.ethereal = {
-      user: testAccount.user,
-      pass: testAccount.pass,
-      smtp: testAccount.smtp,
-    };
-    await db.write();
-    console.log('✉️  Ethereal test account created:', testAccount.user);
-  }
-
-  const { user, pass, smtp } = db.data.ethereal;
+function createTransporter({ user, pass, smtp }) {
   return nodemailer.createTransport({
     host: smtp.host,
     port: smtp.port,
     secure: smtp.secure,
     auth: { user, pass },
   });
+}
+
+async function saveEtherealAccount(db) {
+  const testAccount = await nodemailer.createTestAccount();
+  db.data.ethereal = {
+    user: testAccount.user,
+    pass: testAccount.pass,
+    smtp: testAccount.smtp,
+  };
+  await db.write();
+  console.log('✉️  Ethereal test account created:', testAccount.user);
+  return db.data.ethereal;
+}
+
+async function getTransporter() {
+  const db = await getDb();
+
+  if (!db.data.ethereal) {
+    await saveEtherealAccount(db);
+  }
+
+  let transporter = createTransporter(db.data.ethereal);
+  try {
+    await transporter.verify();
+  } catch (err) {
+    if (!isAuthFailure(err)) throw err;
+    // Ethereal disposable accounts expire; recreate and retry once.
+    console.warn('⚠️  Ethereal login failed (expired credentials). Creating a new test account...');
+    await saveEtherealAccount(db);
+    transporter = createTransporter(db.data.ethereal);
+    await transporter.verify();
+  }
+
+  return transporter;
 }
 
 function extractFirstName(email) {
