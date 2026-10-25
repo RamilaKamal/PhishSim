@@ -263,7 +263,7 @@ export default function Dashboard() {
             {events.length === 0 ? (
               <p className="text-gray-500 text-sm">No events yet.</p>
             ) : (
-              <div className="space-y-3 max-h-[500px] overflow-y-auto">
+              <div className="space-y-3 max-h-[350px] overflow-y-auto">
                 {events.map((event) => {
                   const cfg = eventIcons[event.event] || eventIcons.email_opened;
                   const Icon = cfg.icon;
