@@ -191,6 +191,40 @@ This software is provided exclusively for:
 
 The authors assume no liability for misuse of this tool.
 
+
+## Screenshots
+
+### 1. Campaign Management Dashboard
+Overview of simulation campaigns and analytics.
+
+![PhishSim Dashboard](screenshots/dashboard.png)
+
+### 2. Campaign Creation
+Configure a campaign and select a simulation template.
+
+![Campaign Management](screenshots/campaign-create.png)
+
+### 3. Safe Email Simulation
+Preview test emails using Ethereal.email.
+
+![Ethereal Email Preview](screenshots/email-capture.png)
+
+### 4. Event Tracking and Analytics
+View campaign events and the results funnel.
+
+![Campaign Analytics](screenshots/result.png)
+
+### 5. All Campaign Results
+Overview of analytics across all simulation campaigns.
+
+![All Campaign Results](screenshots/all-results.png)
+
+### 6. Security Awareness Training
+Explore educational content and the phishing recognition quiz.
+
+![Phishing Awareness Quiz](screenshots/awareness-3.png)
+
+
 ## License
 
 Educational use only. Not licensed for commercial phishing or unauthorized security testing.
