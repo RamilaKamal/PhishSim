@@ -1,6 +1,6 @@
 # PhishSim — Phishing Simulation & Security Awareness System
 
-An educational, local-only phishing simulation platform built for cybersecurity university coursework. This tool demonstrates how phishing attacks work, tracks simulated user interactions, and provides security awareness training — **without sending real emails or targeting real users**.
+An educational, local-only phishing simulation platform. This tool demonstrates how phishing attacks work, tracks simulated user interactions, and provides security awareness training — **without sending real emails or targeting real users**.
 
 ## Ethical Disclaimer
 
@@ -18,7 +18,7 @@ An educational, local-only phishing simulation platform built for cybersecurity 
 
 - **Campaign Management** — Create, launch, and delete phishing simulation campaigns
 - **3 Phishing Templates** — Gmail, University Portal, and Corporate Intranet scenarios
-- **Email Simulation** — Sends via Ethereal test SMTP with preview URLs in the console
+- **Email Simulation** — Sends via Ethereal test SMTP; a **Preview** button appears next to each recipient after launch
 - **Event Tracking** — Email opens (pixel), link clicks, page loads, credential submissions
 - **Analytics Dashboard** — Live stats, funnel visualization, per-target timing data
 - **Security Awareness** — Educational content with interactive phishing recognition quiz
@@ -64,16 +64,13 @@ Open your browser to:
 
 ### Step 2: View Sent Emails (Ethereal)
 
-When a campaign launches, the server console logs Ethereal preview URLs:
+After launch, the app shows a **Campaign Launched** screen with a **Sent Email Previews** table. Each recipient has a **Preview** button in front of their email — you do not need the terminal.
 
-```
-📧 Email sent to test@example.com
-   Preview URL: https://ethereal.email/message/...
-```
+1. Click **Preview** next to a recipient (opens Ethereal in a new tab)
+2. Read the simulated phishing email
+3. Click the CTA or tracking link to simulate victim behavior
 
-1. Copy the preview URL from the terminal
-2. Open it in your browser to see the simulated phishing email
-3. Click the CTA button or tracking link to simulate victim behavior
+You can open the same previews later from **Results** → **Per-Target Data** (Preview column).
 
 ### Step 3: Trigger Tracking Events
 
@@ -96,9 +93,9 @@ The simulation tracks these events automatically:
 
 [Ethereal.email](https://ethereal.email) is a free fake SMTP service for testing email functionality:
 
-- Creates disposable test accounts automatically on first server start
+- Creates disposable test accounts automatically (and recreates them if login expires)
 - "Sends" emails to any address without actual delivery
-- Provides a web preview URL for each sent message
+- Each message gets a web preview URL, shown in the UI as a **Preview** button
 - Credentials are saved in `server/data/db.json` for reuse across restarts
 
 **No real person receives these emails.** They exist only as preview pages on Ethereal's website.
@@ -124,6 +121,8 @@ phishing-sim/
 ├── client/
 │   └── src/
 │       ├── App.jsx           # React Router + sidebar layout
+│       ├── components/
+│       │   └── EmailPreviewLink.jsx  # On-screen Ethereal Preview button
 │       └── pages/
 │           ├── Dashboard.jsx
 │           ├── NewCampaign.jsx
@@ -180,7 +179,6 @@ _Screenshots placeholder — capture after running the application._
 
 This software is provided exclusively for:
 
-- University cybersecurity coursework and labs
 - Authorized security awareness training in controlled environments
 - Research into phishing techniques with informed, consenting participants
 
