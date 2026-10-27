@@ -207,12 +207,12 @@ Configure a campaign and select a simulation template.
 ### 3. Safe Email Simulation
 Preview test emails using Ethereal.email.
 
-![Ethereal Email Preview](screenshots/email-capture.png)
+![Ethereal Email Preview](screenshots/email capture.png)
 
 ### 4. Event Tracking and Analytics
 View campaign events and the results funnel.
 
-![Campaign Analytics](screenshots/result.png)
+![Campaign Analytics](screenshots/results.png)
 
 ### 5. All Campaign Results
 Overview of analytics across all simulation campaigns.
